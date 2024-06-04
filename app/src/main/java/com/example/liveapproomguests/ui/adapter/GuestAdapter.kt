@@ -3,10 +3,11 @@ package com.example.liveapproomguests.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.liveapproomguests.data.model.Guest
 import com.example.liveapproomguests.databinding.GuestItemBinding
 
 class GuestAdapter(
-    val dataset: List<*>,
+    val dataset: List<Guest>,
 ) : RecyclerView.Adapter<GuestAdapter.ItemViewHolder>() {
 
     inner class ItemViewHolder(val binding: GuestItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -23,7 +24,8 @@ class GuestAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
 
-
+        holder.binding.guestNameTV.text = item.name
+        holder.binding.guestFoodTV.text = item.food
     }
 
 }
