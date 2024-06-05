@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.liveapproomguests.R
 import com.example.liveapproomguests.data.model.Guest
 import com.example.liveapproomguests.databinding.FragmentGuestListBinding
@@ -16,7 +18,7 @@ class GuestListFragment : Fragment() {
 
     private lateinit var binding: FragmentGuestListBinding
 
-    private val viewModel : GuestViewModel by viewModels()
+    private val viewModel: GuestViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,17 +31,23 @@ class GuestListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.guestList.observe(viewLifecycleOwner){
+        viewModel.guestList.observe(viewLifecycleOwner) {
             Log.d("guestListObserver", it.toString())
 
-            val adapter = GuestAdapter(it)
+            val adapter = GuestAdapter(it) { clickedGuest ->
+                findNavController().navigate(
+                    GuestListFragmentDirections.actionGuestListFragmentToEditFragment(
+                        guestId = clickedGuest.id
+                    )
+                )
+            }
             binding.guestRV.adapter = adapter
         }
 
         binding.addFAB.setOnClickListener {
 
-            val testGuest = Guest(0, "Test Guest", "0 und 1")
-            viewModel.insertGuest(testGuest)
+            findNavController().navigate(GuestListFragmentDirections.actionGuestListFragmentToAddFragment())
+
         }
 
     }

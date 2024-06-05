@@ -8,6 +8,7 @@ import com.example.liveapproomguests.databinding.GuestItemBinding
 
 class GuestAdapter(
     val dataset: List<Guest>,
+    val onGuestClicked: (Guest) -> Unit
 ) : RecyclerView.Adapter<GuestAdapter.ItemViewHolder>() {
 
     inner class ItemViewHolder(val binding: GuestItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -26,6 +27,10 @@ class GuestAdapter(
 
         holder.binding.guestNameTV.text = item.name
         holder.binding.guestFoodTV.text = item.food
+
+        holder.binding.guestCV.setOnClickListener {
+            onGuestClicked(item)
+        }
     }
 
 }
