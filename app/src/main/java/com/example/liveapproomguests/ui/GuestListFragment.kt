@@ -28,20 +28,30 @@ class GuestListFragment : Fragment() {
         return binding.root
     }
 
+    private lateinit var adapter: GuestAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        adapter = GuestAdapter() { clickedGuest ->
+            findNavController().navigate(
+                GuestListFragmentDirections.actionGuestListFragmentToEditFragment(
+                    guestId = clickedGuest.id
+                )
+            )
+        }
+        binding.guestRV.adapter = adapter
 
         viewModel.guestList.observe(viewLifecycleOwner) {
             Log.d("guestListObserver", it.toString())
 
-            val adapter = GuestAdapter(it) { clickedGuest ->
-                findNavController().navigate(
-                    GuestListFragmentDirections.actionGuestListFragmentToEditFragment(
-                        guestId = clickedGuest.id
-                    )
-                )
-            }
-            binding.guestRV.adapter = adapter
+            //submitList funktion gibt neue Daten in den ListAdapter und aktualisiert das UI effizient
+            adapter.submitList(it)
+
+        }
+
+        binding.sortFAB.setOnClickListener {
+             adapter.sortItems()
         }
 
         binding.addFAB.setOnClickListener {
