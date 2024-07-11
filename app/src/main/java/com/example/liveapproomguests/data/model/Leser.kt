@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Leser(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    val leserId: Long = 0,
 
     val name: String,
 

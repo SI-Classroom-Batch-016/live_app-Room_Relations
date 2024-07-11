@@ -4,23 +4,13 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(
-    foreignKeys = [ForeignKey(
-        entity = Leser::class,
-        parentColumns = ["id"],
-        childColumns = ["ausleiherId"],
-        onDelete = ForeignKey.CASCADE // Optional: defines the action on delete
-    )]
-)
+@Entity
 data class Buch(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    val buchId: Long = 0,
 
     val name: String,
-
-
-    val ausleiherId : Long,
 )
 
 

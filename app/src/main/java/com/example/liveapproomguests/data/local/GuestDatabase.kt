@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.liveapproomguests.data.model.Buch
+import com.example.liveapproomguests.data.model.GelesenCrossRef
 import com.example.liveapproomguests.data.model.Leser
 
-@Database(entities = [Buch::class, Leser::class], version = 1)
+@Database(entities = [Buch::class, Leser::class, GelesenCrossRef::class], version = 1)
 abstract class GuestDatabase : RoomDatabase() {
     abstract val dao: GuestDatabaseDao
 }
