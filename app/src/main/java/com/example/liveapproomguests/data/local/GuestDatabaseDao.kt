@@ -7,31 +7,27 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.liveapproomguests.data.model.Guest
+import com.example.liveapproomguests.data.model.Buch
+import com.example.liveapproomguests.data.model.Leser
+import com.example.liveapproomguests.data.model.LeserMitBuchListe
 
 @Dao
 interface GuestDatabaseDao {
 
-    @Query("SELECT * FROM Guest")
-    fun getAll() : LiveData<List<Guest>>
+    @Query("SELECT * FROM Buch")
+    fun getAllBooks() : LiveData<List<Buch>>
 
-    @Query("SELECT * FROM Guest WHERE id=:id")
-    fun getGuestById(id: Long) : LiveData<Guest>
+    @Query("SELECT * FROM Leser")
+    fun getAllLeser() : LiveData<List<Leser>>
 
-    @Update
-    suspend fun updateGuest(guest: Guest)
-
-    @Delete
-    suspend fun deleteGuest(guest: Guest)
+    @Query("SELECT * FROM Leser")
+    fun getAllLeserMitBuchListen() : LiveData<List<LeserMitBuchListe>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGuest(guest : Guest)
+    suspend fun insertBuchList(buchListe : List<Buch>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGuestList(guestList : List<Guest>)
-
-    @Query("SELECT Count(*) FROM Guest")
-    suspend fun getGuestCount() : Int
+    @Query("SELECT Count(*) FROM Buch")
+    suspend fun getBuchCount() : Int
 
 
 }
